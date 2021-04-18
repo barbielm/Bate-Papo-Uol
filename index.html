@@ -17,40 +17,14 @@
     </div>
     <div class="footer">
         <input type="text" placeholder="Escreva aqui...">
-        <ion-icon name="paper-plane-outline"></ion-icon>
+        <ion-icon name="paper-plane-outline" onclick="sendMessage()"></ion-icon>
     </div>
     <div class="messages">
-        <div class="message">
-            <span class="time">(09:22:28)</span>
-            <span class="sender">João</span>
-            <span class="message-type">para</span>
-            <span class="receiver">Todos:</span>
-            <span class="message-content">Bom dia</span>
-        </div>
-        <div class="message leaving-arriving">
-            <span class="time">(09:22:28)</span>
-            <span class="sender">João</span>
-            <span class="message-type">para</span>
-            <span class="receiver">Todos:</span>
-            <span class="message-content">Bom dia</span>
-        </div>
-        <div class="message private">
-            <span class="time">(09:22:28)</span>
-            <span class="sender">João</span>
-            <span class="message-type">para</span>
-            <span class="receiver">Todos:</span>
-            <span class="message-content">Bom dia</span>
-        </div>
-        <div class="message private">
-            <span class="time">(09:22:28)</span>
-            <span class="sender">João</span>
-            <span class="message-type">reservadamente para</span>
-            <span class="receiver">Maria:</span>
-            <span class="message-content">Bom dia, um ótimo dia para vc minha grande amiga</span>
-        </div>
+        
     </div>
-
+    
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="scripts/script.js"></script>
 </body>
 </html>

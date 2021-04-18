@@ -40,6 +40,8 @@ body{
 }
 .footer input{
     border: none;
+    height: 20px;
+    width: 40%;
 }
 .footer input::placeholder{
     font-style: italic;
@@ -48,7 +50,7 @@ body{
     color: #000000;
 }
 
-.message{
+.message-box{
     background-color: #FFFFFF;
     width: 100%;
     margin: 3px 0;
@@ -58,18 +60,21 @@ body{
     font-weight: 400;
     line-height: 20px;
 }
-.message:first-child{
+.message-box:first-child{
     margin-top: 100px;
 }
-.message .sender, .receiver{
+.message-box:last-child{
+    margin-bottom: 90px;
+}
+.message-box .sender, .receiver{
     font-weight: 700;
 }
-.message .time{
+.message-box .time{
     color: #AAAAAA;
 }
-.leaving-arriving{
+.status{
     background-color: #DCDCDC;
 }
-.private{
+.private_message{
     background-color: #FFDEDE;
 }
