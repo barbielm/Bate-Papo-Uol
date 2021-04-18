@@ -1,5 +1,5 @@
 
-let name
+let name, id
 setTimeout(getUserName,100)
 
 function getUserName(){
@@ -23,7 +23,7 @@ function keepConnection(name){
 }
 
 function getMessages(){
-    setInterval(keepConnection,5000,name)
+    id = setInterval(keepConnection,5000,name)
     document.querySelector(".loading").classList.remove("hidden")
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
     promise.then(loadMessages)
@@ -64,6 +64,16 @@ function writeMessage(message){
 }
 
 
-function sendMessage(){
-    console.log("mensagem enviada")
+function sendMessage(element){
+    const text = element.parentElement.querySelector("input").value
+    const message = {
+        from: name,
+        to: "Todos",
+        text: text,
+        type: "message" 
+    }
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", message) 
+    clearInterval(id)
+    promise.then(getMessages)
+    promise.catch(location.reload)
 }

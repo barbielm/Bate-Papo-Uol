@@ -41,7 +41,8 @@ body{
 .footer input{
     border: none;
     height: 20px;
-    width: 40%;
+    width: 70%;
+    height: 30px;
 }
 .footer input::placeholder{
     font-style: italic;
