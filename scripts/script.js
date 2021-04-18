@@ -1,8 +1,28 @@
 
+//setTimeout(getUserName,100)
+
+
+function getUserName(){
+    const name = prompt("Qual o seu lindo nome?")
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name:name })
+    promise.then(getMessages)
+    promise.catch(getAnotherUserName)
+}
+function printerror(error){
+    console.log(error.response.status)
+    console.log(error.response.data)
+}
+
+function getAnotherUserName(){
+    const name = prompt("Digite outro nome pois, o outro já está em uso: ")
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name:name })
+    promise.then(getMessages)
+    promise.catch(getAnotherUserName)
+}
 
 function getMessages(){
-    promisse = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
-    promisse.then(loadMessages)
+    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
+    promise.then(loadMessages)
 }
 
 function loadMessages(reply){
@@ -10,6 +30,9 @@ function loadMessages(reply){
     for(let i = 0; i < messages.length ; i++){
         writeMessage(messages[i])
     }
+    const lastMessage = document.querySelector('.message-box:last-child');
+    lastMessage.scrollIntoView();
+
 }
 
 function writeMessage(message){
