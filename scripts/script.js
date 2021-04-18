@@ -1,6 +1,6 @@
 
 let name, id
-setTimeout(getUserName,100)
+setTimeout(getUserName,200)
 
 function getUserName(){
     name = prompt("Qual o seu lindo nome?")
@@ -11,7 +11,7 @@ function getUserName(){
 
 
 function getAnotherUserName(){
-    name = prompt("Digite outro nome pois, o outro já está em uso: ")
+    name = prompt("Digite outro nome, o outro já está em uso: ")
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name: name })
     promise.then(getMessages)
     promise.catch(getAnotherUserName)
@@ -75,5 +75,15 @@ function sendMessage(element){
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", message) 
     clearInterval(id)
     promise.then(getMessages)
-    promise.catch(location.reload)
+    promise.catch(window.location.reload)
 }
+
+
+function showParticipants(){
+    document.querySelector(".blurry").classList.remove("hidden")
+}
+
+function showChat(element){
+    element.classList.add("hidden")
+}
+

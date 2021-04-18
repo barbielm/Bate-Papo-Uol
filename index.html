@@ -7,24 +7,68 @@
     <title>Bate-papo UOL</title>
     <link rel="stylesheet" href="styles/reset.css"/>
     <link rel="stylesheet" href="styles/style.css"/>
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet"/>
 </head>
 <body>
-    <div class="top">
-        <img src="imgs/logo 1.png" />
-        <ion-icon name="people"></ion-icon>
-    </div>
-    <div class="footer">
-        <input type="text" placeholder="Escreva aqui...">
-        <ion-icon name="paper-plane-outline" onclick="sendMessage(this)"></ion-icon>
-    </div>
-    <div class="loading hidden">
-        <img src="imgs/giphy.gif">
-    </div>
-    <div class="messages">
-        
-    </div>
+    
+        <div class="top">
+            <img src="imgs/logo 1.png" />
+            <ion-icon name="people" onclick="showParticipants()"></ion-icon>
+        </div>
+        <div class="footer">
+            <input type="text" placeholder="Escreva aqui...">
+            <ion-icon name="paper-plane-outline" onclick="sendMessage(this)"></ion-icon>
+        </div>
+        <div class="loading hidden">
+            <img src="imgs/giphy.gif">
+        </div>
+        <div class="messages">
+            
+        </div>
+        <div class="blurry hidden" onclick="showChat(this)">
+            <div class="sidemenu">
+                <div class="title"><div>Escolha um contato para enviar mensagem:</div></div>
+                <div class="people">
+                    <div class="person">
+                        <div class="profile">
+                            <ion-icon name="people"></ion-icon>
+                            <span>Todos</span>
+                        </div>
+                        <ion-icon name="checkmark-outline"  class="hidden"></ion-icon>
+                    </div>
+                    <div class="person">
+                        <div class="profile">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <span>João</span>
+                        </div>
+                        <ion-icon name="checkmark-outline"  class="hidden"></ion-icon>
+                    </div>
+                    <div class="person">
+                        <div class="profile">
+                            <ion-icon name="person-circle"></ion-icon>
+                            <span>Maria</span>
+                        </div>
+                        <ion-icon name="checkmark-outline" class="hidden"></ion-icon>
+                    </div>
+                </div>
+                <div class="title"><div>Escolha a visibilidade:</div></div>
+                <div class="visibility">
+                    <div class="profile">
+                        <ion-icon name="lock-open"></ion-icon>
+                        <span>Público</span>
+                    </div>
+                    <ion-icon name="checkmark-outline" class="hidden"></ion-icon>
+                </div>
+                <div class="visibility">
+                    <div class="profile">
+                        <ion-icon name="lock-closed"></ion-icon>
+                        <span>Reservadamente</span>
+                    </div>
+                    <ion-icon name="checkmark-outline" class="hidden"></ion-icon>
+                </div>
+            </div>
+        </div>
     
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
