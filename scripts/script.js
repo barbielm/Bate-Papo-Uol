@@ -1,7 +1,8 @@
 
-let name, idMessages 
+let name, idConnection 
 let idParticipants = null
 let receiver = "Todos"
+let visibility = "Público"
 setTimeout(getUserName,200)
 
 function getUserName(){
@@ -25,7 +26,7 @@ function keepConnection(name){
 }
 
 function getMessages(){
-    idMessages = setInterval(keepConnection,5000,name)
+    idConnection = setInterval(keepConnection,5000,name)
     document.querySelector(".loading").classList.remove("hidden")
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
     promise.then(loadMessages)
@@ -72,10 +73,15 @@ function sendMessage(element){
         from: name,
         to: receiver,
         text: text,
-        type: "message" 
+        type: "" 
+    }
+    if(visibility === "Público"){
+        message.type = "message"
+    } else{
+        message.type = "private_message"
     }
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", message) 
-    clearInterval(idMessages)
+    clearInterval(idConnection)
     promise.then(getMessages)
     promise.catch(window.location.reload)
     receiver = "Todos"
@@ -117,7 +123,35 @@ function writeParticipants(reply){
                                                                     <ion-icon name="checkmark-outline"  class="selected hidden"></ion-icon>
                                                                 </div>`
     }
+    checkSelectedOptions()
 }
+
+function checkSelectedOptions(){
+    const participants = document.querySelectorAll(".participant")
+    const visibilities = document.querySelectorAll(".visibility") 
+    let counter1 = 0
+    let counter2 = 0
+    for(let i = 0; i < participants.length; i++){
+        if(participants[i].querySelector("span").innerText === receiver ){
+            participants[i].querySelector(".selected").classList.remove("hidden")
+            counter1++
+        }
+    }
+    for(let i = 0; i < visibilities.length; i++){
+        if(visibilities[i].querySelector("span").innerText === visibility ){
+            visibilities[i].querySelector(".selected").classList.remove("hidden")
+            counter2++
+        }
+    }
+    if(counter1 === 0){
+        receiver = "Todos"
+        document.querySelector(".participant .selected").classList.remove("hidden")
+    }
+    if(counter2 === 0){
+        visibility = "Público"
+    }
+}
+
 
 function chooseReceiver(element){
     let checkmark = element.querySelector(".selected")
@@ -132,9 +166,38 @@ function chooseReceiver(element){
     }
     for(let i = 0; i < participants.length; i++){
         if(!participants[i].querySelector(".selected").classList.contains("hidden")){
-            receiver = participants[i].querySelector("span").innerText;
-            return 
+            receiver = participants[i].querySelector("span").innerText; 
         }
     }
-    receiver = "Todos"
+    checkIfPrivate()
+}
+
+function chooseVisibility(element){
+    let checkmark = element.querySelector(".selected")
+    let options = document.querySelectorAll(".visibility")
+    if(!checkmark.classList.contains("hidden")){
+        checkmark.classList.add("hidden")
+    } else {
+        for(let i = 0; i < options.length; i++){
+            options[i].querySelector(".selected").classList.add("hidden")
+        }
+        element.querySelector(".selected").classList.remove("hidden")
+    }
+    for(let i = 0; i < options.length; i++){
+        if(!options[i].querySelector(".selected").classList.contains("hidden")){
+            visibility = options[i].querySelector("span").innerText; 
+        }
+    }   
+    checkIfPrivate()
+}
+
+function checkIfPrivate(){
+    const privateReceiver = document.querySelector(".footer .private-receiver")
+    if(visibility === "Reservadamente"){
+        privateReceiver.innerText = `Enviando para ${receiver} (reservadamente)`
+        privateReceiver.classList.remove("hidden")
+    } else{
+        privateReceiver.innerText = ``
+        privateReceiver.classList.add("hidden")
+    }
 }
