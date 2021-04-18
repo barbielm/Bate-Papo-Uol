@@ -78,3 +78,19 @@ body{
 .private_message{
     background-color: #FFDEDE;
 }
+.loading{
+    width: 100px;
+    height: 100px;
+    position: fixed;
+    top: 100px;
+    left: calc(50% - 50px);
+}
+.loading img{
+    
+    width: 100%;
+    height: 100%;
+}
+
+.hidden{
+    display: none;
+}

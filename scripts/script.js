@@ -1,31 +1,36 @@
 
-//setTimeout(getUserName,100)
-
+let name
+setTimeout(getUserName,100)
 
 function getUserName(){
-    const name = prompt("Qual o seu lindo nome?")
-    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name:name })
+    name = prompt("Qual o seu lindo nome?")
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name: name })
     promise.then(getMessages)
     promise.catch(getAnotherUserName)
-}
-function printerror(error){
-    console.log(error.response.status)
-    console.log(error.response.data)
 }
 
+
 function getAnotherUserName(){
-    const name = prompt("Digite outro nome pois, o outro já está em uso: ")
-    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name:name })
+    name = prompt("Digite outro nome pois, o outro já está em uso: ")
+    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name: name })
     promise.then(getMessages)
     promise.catch(getAnotherUserName)
+}
+
+
+function keepConnection(name){
+    axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/status", { name: name })
 }
 
 function getMessages(){
+    setInterval(keepConnection,5000,name)
+    document.querySelector(".loading").classList.remove("hidden")
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
     promise.then(loadMessages)
 }
 
 function loadMessages(reply){
+    document.querySelector(".loading").classList.add("hidden")
     let messages = reply.data
     for(let i = 0; i < messages.length ; i++){
         writeMessage(messages[i])
