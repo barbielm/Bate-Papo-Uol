@@ -47,3 +47,29 @@ body{
     font-size: 18px;
     color: #000000;
 }
+
+.message{
+    background-color: #FFFFFF;
+    width: 100%;
+    margin: 3px 0;
+    padding: 15px 10px;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 400;
+    line-height: 20px;
+}
+.message:first-child{
+    margin-top: 100px;
+}
+.message .sender, .receiver{
+    font-weight: 700;
+}
+.message .time{
+    color: #AAAAAA;
+}
+.leaving-arriving{
+    background-color: #DCDCDC;
+}
+.private{
+    background-color: #FFDEDE;
+}
