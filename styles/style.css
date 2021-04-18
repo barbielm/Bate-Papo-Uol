@@ -103,14 +103,16 @@ body{
     left: 0;
     background: rgb(0,0,0,0.6);
     z-index: 2;
-    display:flex;
-    justify-content: flex-end;
+    display: flex;
+}
+.nothing{
+    width: 30%;
+    height: 100%;
 }
 .sidemenu{
     background-color: #FFFFFF;
     width: 70%;
     height: 100%;
-    z-index: 3;
     
  }
  .sidemenu .title{
@@ -127,7 +129,7 @@ body{
     font-size: 18px;
     line-height: 20px;
  }
-.sidemenu .people .person{
+.sidemenu .participants .participant{
     height: 20px;
     margin-bottom: 5px;
     padding: 0 5px;
@@ -136,11 +138,11 @@ body{
     justify-content: space-between;
  }
 
-.sidemenu .people .person  .profile{
+.sidemenu .participants .participant  .profile{
     display: flex;
     align-items: center;
 }
-.sidemenu .people .person ion-icon{
+.sidemenu .participants .participant ion-icon{
     font-size: 21px;
     padding: 0 8px;
 }

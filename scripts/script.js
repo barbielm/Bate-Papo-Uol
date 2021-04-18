@@ -1,5 +1,7 @@
 
-let name, id
+let name, idMessages 
+let idParticipants = null
+let receiver = "Todos"
 setTimeout(getUserName,200)
 
 function getUserName(){
@@ -23,7 +25,7 @@ function keepConnection(name){
 }
 
 function getMessages(){
-    id = setInterval(keepConnection,5000,name)
+    idMessages = setInterval(keepConnection,5000,name)
     document.querySelector(".loading").classList.remove("hidden")
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
     promise.then(loadMessages)
@@ -68,22 +70,71 @@ function sendMessage(element){
     const text = element.parentElement.querySelector("input").value
     const message = {
         from: name,
-        to: "Todos",
+        to: receiver,
         text: text,
         type: "message" 
     }
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages", message) 
-    clearInterval(id)
+    clearInterval(idMessages)
     promise.then(getMessages)
     promise.catch(window.location.reload)
+    receiver = "Todos"
 }
 
 
 function showParticipants(){
     document.querySelector(".blurry").classList.remove("hidden")
+    getParticipants()
+    if (!idParticipants){
+        idParticipants = setInterval(getParticipants,10000)
+    }
 }
 
-function showChat(element){
-    element.classList.add("hidden")
+function showChat(){
+    document.querySelector(".blurry").classList.add("hidden")
 }
 
+function getParticipants(){
+    const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants")
+    promise.then(writeParticipants)
+}
+
+function writeParticipants(reply){
+    let participants = reply.data
+    document.querySelector(".participants").innerHTML = `   <div class="participant" onclick="chooseReceiver(this)">
+                                                                <div class="profile">
+                                                                    <ion-icon name="people"></ion-icon>
+                                                                    <span>Todos</span>
+                                                                </div>
+                                                                <ion-icon name="checkmark-outline"  class="selected hidden"></ion-icon>
+                                                            </div>`
+    for(let i = 0; i < participants.length; i++){
+        document.querySelector(".participants").innerHTML += `  <div class="participant" onclick="chooseReceiver(this)">
+                                                                    <div class="profile">
+                                                                        <ion-icon name="person-circle"></ion-icon>
+                                                                        <span>${participants[i].name}</span>
+                                                                    </div>
+                                                                    <ion-icon name="checkmark-outline"  class="selected hidden"></ion-icon>
+                                                                </div>`
+    }
+}
+
+function chooseReceiver(element){
+    let checkmark = element.querySelector(".selected")
+    let participants = document.querySelectorAll(".participant")
+    if(!checkmark.classList.contains("hidden")){
+        checkmark.classList.add("hidden")
+    } else{
+        for(let i = 0; i < participants.length; i++){
+            participants[i].querySelector(".selected").classList.add("hidden")
+        }
+        element.querySelector(".selected").classList.remove("hidden")
+    }
+    for(let i = 0; i < participants.length; i++){
+        if(!participants[i].querySelector(".selected").classList.contains("hidden")){
+            receiver = participants[i].querySelector("span").innerText;
+            return 
+        }
+    }
+    receiver = "Todos"
+}
