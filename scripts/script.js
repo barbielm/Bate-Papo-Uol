@@ -4,7 +4,11 @@ let idParticipants = null
 let receiver = "Todos"
 let visibility = "Público"
 
-
+function sendUserName(event){
+    if(event.keyCode === 13){
+        getUserName()
+    }
+}
 function getUserName(){
     name = document.querySelector(".login input").value
     document.querySelector(".login input").classList.add("hidden")
@@ -71,6 +75,11 @@ function writeMessage(message){
     
 }
 
+function sendMessageByKeyPress(event){
+    if(event.keyCode === 13){
+        sendMessage(document.querySelector(".footer input"))
+    }
+}
 
 function sendMessage(element){
     const text = element.parentElement.querySelector("input").value
