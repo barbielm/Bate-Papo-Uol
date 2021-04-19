@@ -3,10 +3,14 @@ let name, idConnection
 let idParticipants = null
 let receiver = "Todos"
 let visibility = "Público"
-setTimeout(getUserName,200)
+
 
 function getUserName(){
-    name = prompt("Qual o seu lindo nome?")
+    name = document.querySelector(".login input").value
+    document.querySelector(".login input").classList.add("hidden")
+    document.querySelector(".login button").style.display = "none"
+    document.querySelector(".login .gif").classList.remove("hidden")
+    document.querySelector(".login span").classList.remove("hidden")
     const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name: name })
     promise.then(getMessages)
     promise.catch(getAnotherUserName)
@@ -14,10 +18,8 @@ function getUserName(){
 
 
 function getAnotherUserName(){
-    name = prompt("Digite outro nome, o outro já está em uso: ")
-    const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/participants",{ name: name })
-    promise.then(getMessages)
-    promise.catch(getAnotherUserName)
+    alert("Esse user já está logado")
+    location.reload()
 }
 
 
@@ -26,6 +28,7 @@ function keepConnection(name){
 }
 
 function getMessages(){
+    document.querySelector(".login").classList.add("hidden")
     idConnection = setInterval(keepConnection,5000,name)
     document.querySelector(".loading").classList.remove("hidden")
     const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/uol/messages")
@@ -36,7 +39,9 @@ function loadMessages(reply){
     document.querySelector(".loading").classList.add("hidden")
     let messages = reply.data
     for(let i = 0; i < messages.length ; i++){
-        writeMessage(messages[i])
+        if(messages[i].type !== "private_message" || messages[i].to === name){
+            writeMessage(messages[i])
+        }
     }
     const lastMessage = document.querySelector('.message-box:last-child');
     lastMessage.scrollIntoView();
